@@ -245,6 +245,12 @@ export const LoanApplicationForm = () => {
           <Form.Text>e.g., Statements from digital wallets like PayPal, Venmo, etc.</Form.Text>
         </Form.Group>
 
+        <Form.Group className="mb-3" controlId="remarks">
+                  <Form.Label>Remarks for Loan Application</Form.Label>
+                  <Form.Control as="textarea" rows={3} name="remarks" placeholder="e.g., To support your loan application" value={formData.remarks} onChange={handleChange} isInvalid={!!errors.remarks} required />
+                  <Form.Control.Feedback type="invalid">{errors.remarks}</Form.Control.Feedback>
+        </Form.Group>
+
         {/* Reference Section */}
         <h5 className="mt-4 mb-3 border-bottom pb-2">Reference from a Trusted Individual</h5>
         <p className="text-muted small">Provide contact info for someone who can confirm your identity (e.g., community leader, previous employer).</p>
