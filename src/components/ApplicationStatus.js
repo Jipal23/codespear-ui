@@ -49,7 +49,7 @@ export const ApplicationStatus = () => {
     // ✅ Render based on approval
     return (
         <Container>
-            {response.approved ? renderApproved() : renderDenied()}
+            {!!!response.status ? renderApproved() : renderDenied()}
         </Container>
 
     );

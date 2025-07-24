@@ -1,23 +1,21 @@
 import axios from 'axios';
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://127.0.0.1:5000/api";
 
-export async function register (data) {
+export async function register (formData) {
     let response = {};
     try{
         console.log("calling register.")
-        response = await axios.post(BASE_URL + '/register', data, {
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            },
-        });
+        const {data} = await axios.post(BASE_URL + '/register', formData);
+        response = data;
     } catch (e) {
-        if (Number(data.annualIncome) > 10000 && Number(data.annualIncome) < 350000) {
-            response =  {approved: true, creditLimit: 500000, interestRate: 12.0, tenure: 5}
+        if (Number(formData.annualIncome) > 10000 && Number(formData.annualIncome) < 350000) {
+            response =  {status: true, creditLimit: 500000, interestRate: 12.0, tenure: 5}
           } else {
-            response = {approved: false}
+            response = {status: false}
           }
     }
+    console.log(response);
     return response;
 }
 
