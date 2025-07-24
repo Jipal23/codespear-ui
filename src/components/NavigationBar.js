@@ -26,19 +26,10 @@ const NavigationBar = props => {
             </LinkContainer>
 
             <Nav>
-              <LinkContainer to="/second">
-                <Nav.Link >
-                  Second
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/form">
-                <Nav.Link >
-                  form
-                </Nav.Link>
-              </LinkContainer>
+
               <LinkContainer to="/login">
                 <Nav.Link >
-                  login
+                  Login
                 </Nav.Link>
               </LinkContainer>
             </Nav>

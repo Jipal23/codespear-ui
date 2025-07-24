@@ -1,10 +1,22 @@
 // src/components/Home.js
 import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useHistory } from 'react-router-dom';
+
 
 export default function Home(props) {
+
+
+    const history = useHistory();
+
+    const handleApplyClick = () => {
+        history.push('/form');
+    };
+
+
+
     return (
-        <div style={{ backgroundColor: "#f8f9fa", padding: "60px 0" }}>
+        <div style={{padding: "60px 0" }}>
             <Container>
                 {/* Company Introduction */}
                 <Row className="mb-5 text-center">
@@ -58,6 +70,13 @@ export default function Home(props) {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+                    </Col>
+                </Row>
+                <Row className="mt-4">
+                    <Col className="d-flex justify-content-center">
+                        <Button size='lg' onClick={handleApplyClick}>
+                            Apply Now
+                        </Button>
                     </Col>
                 </Row>
             </Container>

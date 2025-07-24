@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import BackendApi from './BackendApi';
+import { useHistory } from 'react-router-dom';
 
 /**
  * A detailed loan application form tailored for individuals applying for a loan,
@@ -25,6 +27,8 @@ export const LoanApplicationForm = () => {
     referenceName: '',
     referenceContact: '',
   });
+
+    const history = useHistory();
 
   // State to hold validation errors for each field.
   const [errors, setErrors] = useState({});
@@ -79,7 +83,6 @@ export const LoanApplicationForm = () => {
 
     // Validate required file uploads
     if (!formData.idProof) newErrors.idProof = 'ID Proof document is required.';
-    if (!formData.additionalProof) newErrors.additionalProof = 'Additional Proof is required.';
     if (!formData.bankTransactions) newErrors.bankTransactions = 'Bank Transaction statements are required.';
     if (!formData.informalIncomeProof) newErrors.informalIncomeProof = 'Proof of Informal Income is required.';
 
@@ -104,12 +107,12 @@ export const LoanApplicationForm = () => {
 
       console.log('Form is valid, submitting data:', formData);
 
-      // Simulate an API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await  BackendApi.register(formData);
+      // ✅ Pass response as state to the status page
+
+      history.push('/status', { response });
 
       setIsSubmitting(false);
-      setStatusMessage('Your application has been submitted successfully! We will review it and get back to you.');
-      // Optionally, reset the form here.
     } else {
       setStatusMessage('Please correct the errors highlighted below before submitting.');
       console.log('Validation failed. Errors:', errors);
@@ -190,7 +193,7 @@ export const LoanApplicationForm = () => {
 
         <Form.Group className="mb-3" controlId="employeeIdCard">
           <Form.Label>2. Employee ID Card </Form.Label>
-          <Form.Control type="file" name="employeeIdCard" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" required />
+          <Form.Control type="file" name="employeeIdCard" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
           <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
         </Form.Group>
@@ -234,11 +237,6 @@ export const LoanApplicationForm = () => {
           <Form.Control type="file" name="walletStatements" onChange={handleFileChange} accept="image/*,.pdf" />
           <Form.Text>e.g., Statements from digital wallets like PayPal, Venmo, etc.</Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="reason">
-                  <Form.Label>Remarks for Loan Application</Form.Label>
-                  <Form.Control as="textarea" rows={3} name="reason" placeholder="e.g., To build credit history, for online purchases, for emergencies" value={formData.reason} onChange={handleChange} isInvalid={!!errors.reason} required />
-                  <Form.Control.Feedback type="invalid">{errors.reason}</Form.Control.Feedback>
-                </Form.Group>
 
         {/* Reference Section */}
         <h5 className="mt-4 mb-3 border-bottom pb-2">Reference from a Trusted Individual</h5>
