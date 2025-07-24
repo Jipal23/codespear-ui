@@ -13,6 +13,8 @@ export const LoanApplicationForm = () => {
     fullName: '',
     dateOfBirth: '',
     address: '',
+    isShop: '',
+    isVehicle: '',
     annualIncome: '',
     employmentStatus: '',
     reason: '',
@@ -138,25 +140,89 @@ export const LoanApplicationForm = () => {
             </Form.Group>
           </Col>
           <Col md={6}>
-                      <Form.Group className="mb-3" controlId="dependents">
-                        <Form.Label>No. of dependents</Form.Label>
-                        <Form.Control type="text" name="dependents" value={formData.dependents} onChange={handleChange} isInvalid={!!errors.dependents} required />
-                        <Form.Control.Feedback type="invalid">{errors.dependents}</Form.Control.Feedback>
+                      <Form.Group className="mb-3" controlId="mobileNo">
+                        <Form.Label>Mobile No</Form.Label>
+                        <Form.Control type="text" name="mobileNo" value={formData.mobileNo} onChange={handleChange} isInvalid={!!errors.mobileNo} required />
+                        <Form.Control.Feedback type="invalid">{errors.mobileNo}</Form.Control.Feedback>
                       </Form.Group>
                     </Col>
-          <Col md={6}>
+            <Col md={6}>
             <Form.Group className="mb-3" controlId="dateOfBirth">
               <Form.Label>Date of Birth</Form.Label>
               <Form.Control type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} isInvalid={!!errors.dateOfBirth} required />
               <Form.Control.Feedback type="invalid">{errors.dateOfBirth}</Form.Control.Feedback>
             </Form.Group>
           </Col>
+          <Col md={6}>
+                                <Form.Group className="mb-3" controlId="dependents">
+                                  <Form.Label>No. of dependents</Form.Label>
+                                  <Form.Control type="text" name="dependents" value={formData.dependents} onChange={handleChange} isInvalid={!!errors.dependents} required />
+                                  <Form.Control.Feedback type="invalid">{errors.dependents}</Form.Control.Feedback>
+                                </Form.Group>
+                              </Col>
+
         </Row>
         <Form.Group className="mb-3" controlId="address">
-          <Form.Label>Current Address</Form.Label>
-          <Form.Control as="textarea" rows={3} name="address" value={formData.address} onChange={handleChange} isInvalid={!!errors.address} required />
-          <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
-        </Form.Group>
+                  <Form.Label>Current Address</Form.Label>
+                  <Form.Control as="textarea" rows={3} name="address" value={formData.address} onChange={handleChange} isInvalid={!!errors.address} required />
+                  <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+                </Form.Group>
+
+        <h5 className="mt-4 mb-3 border-bottom pb-2">Questionnaire</h5>
+        <Row>
+          {/* ✨ Yes/No Radio Buttons for "Do you own a vehicle?" */}
+          <Form.Group as={Col} md={6} className="mb-3" controlId="isVehicle">
+            <Form.Label>Do you own a vehicle? <span className="text-danger">*</span></Form.Label>
+            {/* The 'isInvalid' on the wrapper helps show the error message correctly */}
+            <div className={errors.isVehicle ? 'is-invalid' : ''}>
+              <Form.Check
+                inline
+                type="radio"
+                label="Yes"
+                name="isVehicle"
+                value="yes"
+                onChange={handleChange}
+                checked={formData.isVehicle === 'yes'}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                label="No"
+                name="isVehicle"
+                value="no"
+                onChange={handleChange}
+                checked={formData.isVehicle === 'no'}
+              />
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.isVehicle}</Form.Control.Feedback>
+          </Form.Group>
+
+          {/* ✨ Yes/No Radio Buttons for "Do you have a shop?" */}
+          <Form.Group as={Col} md={6} className="mb-3" controlId="isShop">
+            <Form.Label>Do you have a shop? <span className="text-danger">*</span></Form.Label>
+            <div className={errors.isShop ? 'is-invalid' : ''}>
+              <Form.Check
+                inline
+                type="radio"
+                label="Yes"
+                name="isShop"
+                value="yes"
+                onChange={handleChange}
+                checked={formData.isShop === 'yes'}
+              />
+              <Form.Check
+                inline
+                type="radio"
+                label="No"
+                name="isShop"
+                value="no"
+                onChange={handleChange}
+                checked={formData.isShop === 'no'}
+              />
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.isShop}</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
 
         {/* Financial Information Section */}
         <h5 className="mt-4 mb-3 border-bottom pb-2">Financial & Employment Information</h5>
