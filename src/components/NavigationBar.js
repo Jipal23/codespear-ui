@@ -32,6 +32,13 @@ const NavigationBar = props => {
                 </Nav.Link>
               </LinkContainer>
             </Nav>
+            <Nav>
+              <LinkContainer to="/form">
+                <Nav.Link >
+                  form
+                </Nav.Link>
+              </LinkContainer>
+            </Nav>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             </Navbar.Collapse>
