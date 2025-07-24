@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoanApplicationForm.css'; // We'll create this file for styling
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 
 export const LoanApplicationForm = (props) => {
   // State to hold all form data in a single object
@@ -8,7 +8,7 @@ export const LoanApplicationForm = (props) => {
     dateOfBirth: '',
     address: '',
     annualIncome: '',
-    employmentStatus: '', // Default empty state
+    employmentStatus: '',
     reason: '',
     idProof: null,
   });
@@ -19,13 +19,20 @@ export const LoanApplicationForm = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
-  // A single handler for text, date, and select inputs
+  // A single handler for most inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
+    // Clear the error for the field when the user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: null,
+      });
+    }
   };
 
   // A specific handler for the file input
@@ -34,157 +41,171 @@ export const LoanApplicationForm = (props) => {
       ...formData,
       idProof: e.target.files[0], // Store the file object
     });
+     // Clear the error for the field when a file is selected
+    if (errors.idProof) {
+      setErrors({
+        ...errors,
+        idProof: null,
+      });
+    }
   };
 
   // Function to validate the form data
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.fullName) newErrors.fullName = 'Full Name is required.';
+    if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required.';
     if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required.';
-    if (!formData.address) newErrors.address = 'Address is required.';
+    if (!formData.address.trim()) newErrors.address = 'Address is required.';
     if (!formData.annualIncome) {
       newErrors.annualIncome = 'Annual Income is required.';
     } else if (isNaN(formData.annualIncome) || Number(formData.annualIncome) < 0) {
-      newErrors.annualIncome = 'Please enter a valid income.';
+      newErrors.annualIncome = 'Please enter a valid, positive income.';
     }
     if (!formData.employmentStatus) newErrors.employmentStatus = 'Employment Status is required.';
-    if (!formData.reason) newErrors.reason = 'Reason for application is required.';
+    if (!formData.reason.trim()) newErrors.reason = 'Reason for application is required.';
     if (!formData.idProof) newErrors.idProof = 'ID Proof document is required.';
 
     setErrors(newErrors);
-    // Return true if there are no errors, false otherwise
+    // Return true if there are no errors
     return Object.keys(newErrors).length === 0;
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
     setStatusMessage('');
 
     if (validateForm()) {
       setIsSubmitting(true);
-      // Simulate an API call
+      // Simulate an API call to submit the data
       console.log('Form data submitted:', formData);
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setStatusMessage('Your application has been submitted successfully!');
-        // Here you would typically reset the form or redirect the user
-      }, 2000);
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      setIsSubmitting(false);
+      setStatusMessage('Your application has been submitted successfully!');
+      // Reset form or redirect user
     } else {
+      setStatusMessage('Please correct the errors before submitting.');
       console.log('Form has validation errors.');
     }
   };
 
   return (
-    <div className="form-container">
-      <h1 className="form-title">Credit Card Application</h1>
-      <p className="form-subtitle">Please fill out the form below. All fields are required.</p>
+    <Container className="my-5">
+      <h1 className="mb-3">Credit Card Application</h1>
+      <p className="text-muted mb-4">
+        Please fill out the form below. All fields are required.
+      </p>
 
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="form-group">
-          <label htmlFor="fullName">Full Name</label>
-          <input
+      <Form noValidate onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="fullName">
+          <Form.Label>Full Name</Form.Label>
+          <Form.Control
             type="text"
-            id="fullName"
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            aria-describedby="fullNameError"
+            isInvalid={!!errors.fullName}
+            required
           />
-          {errors.fullName && <span id="fullNameError" className="error-message">{errors.fullName}</span>}
-        </div>
+          <Form.Control.Feedback type="invalid">{errors.fullName}</Form.Control.Feedback>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="dateOfBirth">Date of Birth</label>
-          <input
+        <Form.Group className="mb-3" controlId="dateOfBirth">
+          <Form.Label>Date of Birth</Form.Label>
+          <Form.Control
             type="date"
-            id="dateOfBirth"
             name="dateOfBirth"
             value={formData.dateOfBirth}
             onChange={handleChange}
-            aria-describedby="dobError"
+            isInvalid={!!errors.dateOfBirth}
+            required
           />
-          {errors.dateOfBirth && <span id="dobError" className="error-message">{errors.dateOfBirth}</span>}
-        </div>
+          <Form.Control.Feedback type="invalid">{errors.dateOfBirth}</Form.Control.Feedback>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="address">Address</label>
-          <textarea
-            id="address"
+        <Form.Group className="mb-3" controlId="address">
+          <Form.Label>Address</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
             name="address"
             value={formData.address}
             onChange={handleChange}
-            rows="3"
-            aria-describedby="addressError"
-          ></textarea>
-          {errors.address && <span id="addressError" className="error-message">{errors.address}</span>}
-        </div>
+            isInvalid={!!errors.address}
+            required
+          />
+          <Form.Control.Feedback type="invalid">{errors.address}</Form.Control.Feedback>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="annualIncome">Annual Income ($)</label>
-          <input
+        <Form.Group className="mb-3" controlId="annualIncome">
+          <Form.Label>Annual Income ($)</Form.Label>
+          <Form.Control
             type="number"
-            id="annualIncome"
             name="annualIncome"
+            placeholder="e.g., 30000"
             value={formData.annualIncome}
             onChange={handleChange}
-            placeholder="e.g., 30000"
-            aria-describedby="incomeError"
+            isInvalid={!!errors.annualIncome}
+            required
           />
-          {errors.annualIncome && <span id="incomeError" className="error-message">{errors.annualIncome}</span>}
-        </div>
+          <Form.Control.Feedback type="invalid">{errors.annualIncome}</Form.Control.Feedback>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="employmentStatus">Employment Status</label>
-          <select
-            id="employmentStatus"
+        <Form.Group className="mb-3" controlId="employmentStatus">
+          <Form.Label>Employment Status</Form.Label>
+          <Form.Select
             name="employmentStatus"
             value={formData.employmentStatus}
             onChange={handleChange}
-            aria-describedby="employmentError"
+            isInvalid={!!errors.employmentStatus}
+            required
           >
             <option value="" disabled>-- Please select --</option>
             <option value="Employed">Employed</option>
             <option value="Self-Employed">Self-Employed</option>
             <option value="Unemployed">Unemployed</option>
-          </select>
-          {errors.employmentStatus && <span id="employmentError" className="error-message">{errors.employmentStatus}</span>}
-        </div>
+          </Form.Select>
+          <Form.Control.Feedback type="invalid">{errors.employmentStatus}</Form.Control.Feedback>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="reason">Reason for Credit Card Application</label>
-          <textarea
-            id="reason"
+        <Form.Group className="mb-3" controlId="reason">
+          <Form.Label>Reason for Credit Card Application</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
             name="reason"
             value={formData.reason}
             onChange={handleChange}
-            rows="4"
-            aria-describedby="reasonError"
-          ></textarea>
-          {errors.reason && <span id="reasonError" className="error-message">{errors.reason}</span>}
-        </div>
+            isInvalid={!!errors.reason}
+            required
+          />
+          <Form.Control.Feedback type="invalid">{errors.reason}</Form.Control.Feedback>
+        </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="idProof">Upload ID Proof (e.g., Driver's License, Passport)</label>
-          <input
+        <Form.Group className="mb-3" controlId="idProof">
+          <Form.Label>Upload ID Proof (e.g., Driver's License, Passport)</Form.Label>
+          <Form.Control
             type="file"
-            id="idProof"
             name="idProof"
             onChange={handleFileChange}
+            isInvalid={!!errors.idProof}
             accept="image/*,.pdf"
-            aria-describedby="idProofError"
+            required
           />
-          {/* Display the name of the selected file for user feedback */}
-          {formData.idProof && <span className="file-name">Selected file: {formData.idProof.name}</span>}
-          {errors.idProof && <span id="idProofError" className="error-message">{errors.idProof}</span>}
-        </div>
+          <Form.Control.Feedback type="invalid">{errors.idProof}</Form.Control.Feedback>
+        </Form.Group>
 
-        <button type="submit" className="submit-button" disabled={isSubmitting}>
+        {statusMessage && (
+          <Alert variant={Object.keys(errors).length > 0 && !isSubmitting ? 'danger' : 'success'} className="mt-4">
+            {statusMessage}
+          </Alert>
+        )}
+
+        <Button variant="primary" type="submit" disabled={isSubmitting} className="mt-3">
           {isSubmitting ? 'Submitting...' : 'Submit Application'}
-        </button>
-
-        {statusMessage && <div className="status-message">{statusMessage}</div>}
-      </form>
-    </div>
+        </Button>
+      </Form>
+    </Container>
   );
 };
