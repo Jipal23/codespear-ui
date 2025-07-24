@@ -32,6 +32,12 @@ const NavigationBar = props => {
                   Login
                 </Nav.Link>
               </LinkContainer>
+
+              <LinkContainer to="/videokyc">
+                <Nav.Link >
+                  Video KYC
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
