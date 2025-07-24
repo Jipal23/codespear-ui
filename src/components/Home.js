@@ -16,14 +16,14 @@ export default function Home(props) {
 
 
     return (
-        <div style={{padding: "60px 0" }}>
+        <div style={{ padding: "60px 0" }}>
             <Container>
                 {/* Company Introduction */}
                 <Row className="mb-5 text-center">
                     <Col>
                         <h2 className="mb-3">Who We Are</h2>
                         <p className="text-muted mx-auto" style={{ maxWidth: "700px" }}>
-                            At <strong>VendorLoans</strong>, we specialize in providing fast and flexible financial support
+                            At <strong>Micro Lending's</strong>, we specialize in providing fast and flexible financial support
                             to small vendors, shopkeepers, and micro-entrepreneurs. Our mission is to empower local businesses
                             with access to capital so they can grow and thrive in their communities.
                         </p>
