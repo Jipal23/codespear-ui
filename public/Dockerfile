@@ -2,7 +2,7 @@
 FROM node:18-alpine AS build
 
 # Set working directory
-WORKDIR /app
+WORKDIR /
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -23,13 +23,13 @@ RUN npm run build
 FROM node:18-alpine AS production
 
 # Set working directory
-WORKDIR /app
+WORKDIR /
 
 # Copy the build folder from the previous stage
-COPY --from=build /app/build ./build
+COPY --from=build /build ./build
 
 # Expose port 3000
-EXPOSE 3000
+EXPOSE 8080
 
 # Start the static server
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["serve", "-s", "build", "-l", "8080"]
