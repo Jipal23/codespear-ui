@@ -15,7 +15,10 @@ export const LoanApplicationForm = () => {
     employmentStatus: '',
     reason: '',
     idProof: null,
-    additionalProof: null,
+    employeeIdCard: null,
+    recentSalarySlips: null,
+    utilityBillsGas: null,
+    utilityBillsGasRation: null,
     bankTransactions: null,
     walletStatements: null, // Optional field
     informalIncomeProof: null,
@@ -185,29 +188,29 @@ export const LoanApplicationForm = () => {
           <Form.Control.Feedback type="invalid">{errors.idProof}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="additionalProof">
+        <Form.Group className="mb-3" controlId="employeeIdCard">
           <Form.Label>2. Employee ID Card </Form.Label>
-          <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" required />
+          <Form.Control type="file" name="employeeIdCard" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" required />
           <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="additionalProof">
+        <Form.Group className="mb-3" controlId="recentSalarySlips">
                   <Form.Label>3. Recent Salary Slips </Form.Label>
-                  <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
+                  <Form.Control type="file" name="recentSalarySlips" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
                   <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
                   <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
                 </Form.Group>
 
-        <Form.Group className="mb-3" controlId="additionalProof">
+        <Form.Group className="mb-3" controlId="utilityBillsGas">
                   <Form.Label>4. Utility Bill (Gas, Electricity, Water) </Form.Label>
-                  <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
+                  <Form.Control type="file" name="utilityBillsGas" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
                   <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
                   <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
                 </Form.Group>
-        <Form.Group className="mb-3" controlId="additionalProof">
+        <Form.Group className="mb-3" controlId="utilityBillsGasRation">
           <Form.Label>5. Utility Bill (Property Tax, Ration Card)</Form.Label>
-          <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
+          <Form.Control type="file" name="utilityBillsGasRation" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
           <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
         </Form.Group>
