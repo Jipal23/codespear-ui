@@ -186,31 +186,56 @@ export const LoanApplicationForm = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="additionalProof">
-          <Form.Label>2. Additional Proof (Address/Income) <span className="text-danger">*</span></Form.Label>
+          <Form.Label>2. Employee ID Card </Form.Label>
           <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" required />
-          <Form.Text>e.g., Employee ID, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
+          <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
+          <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="additionalProof">
+                  <Form.Label>3. Recent Salary Slips </Form.Label>
+                  <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
+                  <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
+                  <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
+                </Form.Group>
+
+        <Form.Group className="mb-3" controlId="additionalProof">
+                  <Form.Label>4. Utility Bill (Gas, Electricity, Water) </Form.Label>
+                  <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
+                  <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
+                  <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
+                </Form.Group>
+        <Form.Group className="mb-3" controlId="additionalProof">
+          <Form.Label>5. Utility Bill (Property Tax, Ration Card)</Form.Label>
+          <Form.Control type="file" name="additionalProof" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
+          <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="bankTransactions">
-          <Form.Label>3. Bank Transactions (Last 3 Months) <span className="text-danger">*</span></Form.Label>
+          <Form.Label>6. Bank Transactions (Last 3 Months) <span className="text-danger">*</span></Form.Label>
           <Form.Control type="file" name="bankTransactions" onChange={handleFileChange} isInvalid={!!errors.bankTransactions} accept="image/*,.pdf" required />
           <Form.Text>e.g., Bank statements or passbook pages</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.bankTransactions}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="informalIncomeProof">
-          <Form.Label>4. Evidence of How You Earn Money <span className="text-danger">*</span></Form.Label>
+          <Form.Label>7. Evidence of How You Earn Money <span className="text-danger">*</span></Form.Label>
           <Form.Control type="file" name="informalIncomeProof" onChange={handleFileChange} isInvalid={!!errors.informalIncomeProof} accept="image/*,.pdf" required />
           <Form.Text>For self-employed or informal work. e.g., photos of your work, receipts from customers, a letter explaining your work.</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.informalIncomeProof}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="walletStatements">
-          <Form.Label>5. Payment Wallet Statements (Optional)</Form.Label>
+          <Form.Label>8. Payment Wallet Statements</Form.Label>
           <Form.Control type="file" name="walletStatements" onChange={handleFileChange} accept="image/*,.pdf" />
           <Form.Text>e.g., Statements from digital wallets like PayPal, Venmo, etc.</Form.Text>
         </Form.Group>
+        <Form.Group className="mb-3" controlId="reason">
+                  <Form.Label>Remarks for Loan Application</Form.Label>
+                  <Form.Control as="textarea" rows={3} name="reason" placeholder="e.g., To build credit history, for online purchases, for emergencies" value={formData.reason} onChange={handleChange} isInvalid={!!errors.reason} required />
+                  <Form.Control.Feedback type="invalid">{errors.reason}</Form.Control.Feedback>
+                </Form.Group>
 
         {/* Reference Section */}
         <h5 className="mt-4 mb-3 border-bottom pb-2">Reference from a Trusted Individual</h5>
