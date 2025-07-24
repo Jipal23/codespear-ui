@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import { Second } from "./Second.js";
 import { LoanApplicationForm } from "./LoanApplicationForm.js";
-import Home from "./Home.js";
+import { Home } from "./Home.js";
 import MobileLogin from './MobileLogin.js';
 
 export default function Routes(props) {
