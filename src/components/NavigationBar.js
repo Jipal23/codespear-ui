@@ -18,9 +18,9 @@ const NavigationBar = props => {
           <Container>
             <LinkContainer to="/">
               <Navbar.Brand className="mr-lg-5">
-                <img style={{ height: "25px" }}
+                <img style={{ height: "30px" }}
                   alt="..."
-                  src={require("../assets/img/brand/brand-logo.png")}
+                  src={require("../assets/img/brand/logo_30.png")}
                 />
               </Navbar.Brand>
             </LinkContainer>
