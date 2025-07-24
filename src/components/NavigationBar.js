@@ -13,6 +13,7 @@ const NavigationBar = props => {
         <Navbar
           expand="sm"
           id="navbar-main"
+          className="bg-primary navbar-dark navbar-transparent"
         >
           <Container>
             <LinkContainer to="/">

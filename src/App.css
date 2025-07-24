@@ -1,9 +1,9 @@
-#navbar-main {
-  background-color: rgb(255, 168, 183);
+body {
+  background-color: var(--bs-body-bg);
 }
 
 .container-fluid {
-  background-color: rgb(255, 231, 235);
+  padding: 1rem;
 }
 
 @keyframes App-logo-spin {
