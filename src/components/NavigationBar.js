@@ -31,11 +31,14 @@ const NavigationBar = props => {
                   Second
                 </Nav.Link>
               </LinkContainer>
-            </Nav>
-            <Nav>
               <LinkContainer to="/form">
                 <Nav.Link >
                   form
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/login">
+                <Nav.Link >
+                  login
                 </Nav.Link>
               </LinkContainer>
             </Nav>
