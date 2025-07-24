@@ -138,6 +138,13 @@ export const LoanApplicationForm = () => {
             </Form.Group>
           </Col>
           <Col md={6}>
+                      <Form.Group className="mb-3" controlId="dependents">
+                        <Form.Label>No. of dependents</Form.Label>
+                        <Form.Control type="text" name="dependents" value={formData.dependents} onChange={handleChange} isInvalid={!!errors.dependents} required />
+                        <Form.Control.Feedback type="invalid">{errors.dependents}</Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+          <Col md={6}>
             <Form.Group className="mb-3" controlId="dateOfBirth">
               <Form.Label>Date of Birth</Form.Label>
               <Form.Control type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} isInvalid={!!errors.dateOfBirth} required />
@@ -156,7 +163,7 @@ export const LoanApplicationForm = () => {
         <Row>
           <Col md={6}>
             <Form.Group className="mb-3" controlId="annualIncome">
-              <Form.Label>Annual Income ($)</Form.Label>
+              <Form.Label>Annual Income ⟨₹⟩</Form.Label>
               <Form.Control type="number" name="annualIncome" placeholder="Total yearly income" value={formData.annualIncome} onChange={handleChange} isInvalid={!!errors.annualIncome} required />
               <Form.Control.Feedback type="invalid">{errors.annualIncome}</Form.Control.Feedback>
             </Form.Group>
