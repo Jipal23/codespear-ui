@@ -1,7 +1,9 @@
 import React from 'react';
-import { Card, Row, Col, Container } from 'react-bootstrap';
+import { Card, Row, Col, Container, Button } from 'react-bootstrap';
 
 import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { STATUS_PARTIAL, STATUS_REJECTED, STATUS_APPROVED } from './Constant';
 
 // EMI calculator
 const calculateEMI = (principal, rate, tenureInYears) => {
@@ -14,29 +16,53 @@ const calculateEMI = (principal, rate, tenureInYears) => {
 
 export const ApplicationStatus = () => {
 
+    const history = useHistory();
     const location = useLocation();
     const response = location.state?.response;
 
     if (!response) {
         return <Container><Card className="p-4 shadow"><p className="text-danger">No application data found.</p></Card></Container>
+    
     }
 
-    // ✅ Approved View
-    const renderApproved = () => {
+    const handleApplyClick = () => {
+        history.push('/videokyc');
+    };
+
+
+    // ✅ Patial Approved View
+    const renderPartial = () => {
         const emi = calculateEMI(response.creditLimit, response.interestRate, response.tenure);
 
         return (
             <Card className="p-4 mt-4 shadow">
-                <h2 className="text-success mb-3">🎉 Application Approved!</h2>
+                <h2 className="text-success mb-3">🎉 Application Submitted, please proceed for KYC!</h2>
                 <Row className="mb-3">
                     <Col><strong>Credit Limit:</strong> ₹{response.creditLimit}</Col>
                     <Col><strong>Interest Rate:</strong> {response.interestRate}%</Col>
                     <Col><strong>Tenure:</strong> {response.tenure} Year</Col>
                 </Row>
                 <h5>Your EMI will be: ₹{emi}/month</h5>
+
+                <Row className="mt-4">
+                    <Col className="d-flex justify-content-center">
+                        <Button size='lg' onClick={handleApplyClick}>
+                            Proceed to Video KYC
+                        </Button>
+                    </Col>
+                </Row>
             </Card>
         );
     };
+
+        // ✅ Approved View
+        const renderApproved = () => {
+            return (
+                <Card className="p-4 mt-4 shadow">
+                    <h2 className="text-success mb-3">🎉 Application Approved!</h2>
+                </Card>
+            );
+        };
 
     // ✅ Denied View
     const renderDenied = () => (
@@ -49,7 +75,9 @@ export const ApplicationStatus = () => {
     // ✅ Render based on approval
     return (
         <Container>
-            {!!!response.status ? renderApproved() : renderDenied()}
+            {response.status === STATUS_PARTIAL &&  renderPartial()}
+            {response.status === STATUS_APPROVED &&  renderApproved()}
+            {response.status === STATUS_REJECTED &&  renderDenied()}
         </Container>
 
     );

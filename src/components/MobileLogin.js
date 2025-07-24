@@ -9,16 +9,21 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { BsInfoCircle } from "react-icons/bs";
+import { useHistory } from 'react-router-dom';
+import BackendApi from './BackendApi';
 
 const HARDCODED_PAN = "ABCDE1234F";
 
 export default function MobileLogin() {
+
+  const history = useHistory();
+
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (mobile.length !== 10) {
       setError("Please enter a valid 10-digit mobile number.");
       return;
@@ -29,6 +34,22 @@ export default function MobileLogin() {
     if (password === expectedPassword) {
       setLoggedIn(true);
       setError("");
+
+const formData = {
+  mobile,
+  password
+};
+
+const submissionData = new FormData();
+Object.keys(formData).forEach(key => {
+  submissionData.append(key, formData[key]);
+});
+
+      
+      const response = await  BackendApi.login(submissionData);
+
+      history.push('/status', { response });
+
     } else {
       setError("Invalid password.");
     }
