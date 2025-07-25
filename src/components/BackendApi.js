@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { STATUS_PARTIAL, STATUS_REJECTED, STATUS_APPROVED } from './Constant';
 
-const BASE_URL = "http://127.0.0.1:8080/api";
-// const BASE_URL = "https://micro-lending-service-844651808858.europe-west1.run.app/api";
+// const BASE_URL = "http://127.0.0.1:8080/api";
+const BASE_URL = "https://micro-lending-service-844651808858.europe-west1.run.app/api";
 
 export async function register(formData) {
     let response = {};
