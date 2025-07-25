@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { STATUS_APPROVED, STATUS_INITIAL, STATUS_PARTIAL } from './Constant';
+import { useAuth } from '../AuthContext';
+import BackendApi from './BackendApi';
 
 const VideoRecorder = () => {
     const [recording, setRecording] = useState(STATUS_INITIAL);
@@ -8,6 +10,8 @@ const VideoRecorder = () => {
     const chunks = useRef([]);
     const videoRef = useRef();
     const streamRef = useRef();
+
+    const context = useAuth();
 
     const startRecording = async () => {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -28,10 +32,16 @@ const VideoRecorder = () => {
         setRecording(STATUS_PARTIAL);
     };
 
-    const stopRecording = () => {
+    const stopRecording = async () => {
         mediaRecorder.stop();
         streamRef.current.getTracks().forEach(track => track.stop());
         setRecording(STATUS_APPROVED);
+
+
+        const {data} = await BackendApi.kycDoneApi(context.mobileNumber);
+
+        console.log(data);
+
     };
 
     const kycDone = () => {

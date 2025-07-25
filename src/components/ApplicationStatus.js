@@ -3,7 +3,7 @@ import { Card, Row, Col, Container, Button } from 'react-bootstrap';
 
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import { STATUS_PARTIAL, STATUS_REJECTED, STATUS_APPROVED } from './Constant';
+import { STATUS_PARTIAL, STATUS_REJECTED, STATUS_APPROVED, STATUS_KYC } from './Constant';
 
 // EMI calculator
 const calculateEMI = (principal, rate, tenureInYears) => {
@@ -64,6 +64,16 @@ export const ApplicationStatus = () => {
             );
         };
 
+
+        // ✅ kyc View
+        const renderKycDone = () => {
+            return (
+                <Card className="p-4 mt-4 shadow">
+                    <h2 className="text-success mb-3">🎉 KYC is done, please allow us 3-4 days time!</h2>
+                </Card>
+            );
+        };
+
     // ✅ Denied View
     const renderDenied = () => (
         <Card className="p-4 mt-4 shadow">
@@ -78,6 +88,7 @@ export const ApplicationStatus = () => {
             {response.status === STATUS_PARTIAL &&  renderPartial()}
             {response.status === STATUS_APPROVED &&  renderApproved()}
             {response.status === STATUS_REJECTED &&  renderDenied()}
+            {response.status === STATUS_KYC &&  renderKycDone()}
         </Container>
 
     );

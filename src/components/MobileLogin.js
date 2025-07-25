@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import BackendApi from './BackendApi';
 import { useAuth } from "../AuthContext";
 
-const HARDCODED_PAN = "ABCDE1234F";
+const HARDCODED_PAN = "F";
 
 export default function MobileLogin() {
 
@@ -23,7 +23,8 @@ export default function MobileLogin() {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
-	const { loggedIn, setLoggedIn, setUserName } = useAuth();
+	const context = useAuth();
+
 
 
 	const handleLogin = async () => {
@@ -35,10 +36,10 @@ export default function MobileLogin() {
 		const expectedPassword = mobile.slice(-4) + HARDCODED_PAN;
 
 		if (password === expectedPassword) {
-			setLoggedIn(true);
+			context.setLoggedIn(true);
 			setError("");
-			setUserName(mobile);
-
+			
+			context.setMobileNumber(mobile);
 			const formData = {
 				mobile,
 				password
@@ -53,6 +54,7 @@ export default function MobileLogin() {
 			const response = await BackendApi.login(submissionData);
 
 			history.push('/status', { response });
+			context.setUserName(response.name);
 
 		} else {
 			setError("Invalid password.");
@@ -68,7 +70,7 @@ export default function MobileLogin() {
 							Login with Mobile & Password
 						</Card.Title>
 
-						{!loggedIn ? (
+						{!context.loggedIn ? (
 							<Form>
 								<Form.Group className="mb-3">
 									<Form.Label>Mobile Number</Form.Label>

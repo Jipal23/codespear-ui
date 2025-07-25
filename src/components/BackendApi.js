@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { STATUS_PARTIAL, STATUS_REJECTED, STATUS_APPROVED } from './Constant';
 
-//const BASE_URL = "http://127.0.0.1:8080/api";
-const BASE_URL = "https://micro-lending-service-844651808858.europe-west1.run.app/api";
+const BASE_URL = "http://127.0.0.1:8080/api";
+// const BASE_URL = "https://micro-lending-service-844651808858.europe-west1.run.app/api";
 
 export async function register(formData) {
     let response = {};
@@ -41,8 +41,23 @@ export async function login(formData) {
     return response;
 }
 
+export async function kycDoneApi(mobileNumber) {
+    let response = {};
+    try {
+        console.log("calling stop kyc.")
+        const { data } = await axios.get(BASE_URL + '/kyc', {
+            params: { mobile: mobileNumber }
+        });
+
+        response = data;
+    } catch (e) {
+        console.log(response);
+    }
+    return "done";
+}
+
 const BackendApi = {
-    register, login
+    register, login, kycDoneApi
 };
 
 export default BackendApi;
