@@ -4,11 +4,8 @@ import {
 	Form,
 	Button,
 	Row,
-	Col,
-	OverlayTrigger,
-	Tooltip,
+	Col
 } from "react-bootstrap";
-import { BsInfoCircle } from "react-icons/bs";
 import { useHistory } from 'react-router-dom';
 import BackendApi from './BackendApi';
 import { useAuth } from "../AuthContext";
@@ -38,7 +35,7 @@ export default function MobileLogin() {
 		if (password === expectedPassword) {
 			context.setLoggedIn(true);
 			setError("");
-			
+
 			context.setMobileNumber(mobile);
 			const formData = {
 				mobile,
@@ -52,9 +49,16 @@ export default function MobileLogin() {
 
 
 			const response = await BackendApi.login(submissionData);
+			if (response.status === "not_found") {
+				context.setLoggedIn(false);
+				console.log("not found")
+				setError("You are not registered, Please apply")
 
-			history.push('/status', { response });
-			context.setUserName(response.name);
+			} else {
+				history.push('/status', { response });
+				context.setUserName(response.name);
+			}
+
 
 		} else {
 			setError("Invalid password.");
@@ -67,7 +71,7 @@ export default function MobileLogin() {
 				<Col md={6}>
 					<Card className="p-4 shadow">
 						<Card.Title className="text-center mb-3">
-							Login with Mobile & Password
+							Login
 						</Card.Title>
 
 						{!context.loggedIn ? (
@@ -85,21 +89,7 @@ export default function MobileLogin() {
 
 								<Form.Group className="mb-3">
 									<Form.Label>
-										Password{" "}
-										<OverlayTrigger
-											placement="right"
-											overlay={
-												<Tooltip>
-													Password = last 4 digits of mobile + PAN ({HARDCODED_PAN})
-												</Tooltip>
-											}
-										>
-											<span>
-												<BsInfoCircle
-													style={{ cursor: "pointer", marginLeft: "5px" }}
-												/>
-											</span>
-										</OverlayTrigger>
+										Password
 									</Form.Label>
 									<Form.Control
 										type="password"

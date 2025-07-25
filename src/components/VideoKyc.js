@@ -47,7 +47,8 @@ const VideoRecorder = () => {
     const kycDone = () => {
         return (
             <Card className="p-4 mt-4 shadow">
-                <h2 className="text-success mb-3">🎉 KYC Verification Completed Successfully. Our team will update your status within 3-5 working days.!</h2>
+                <h2 className="text-success mb-3">🎉 KYC Successfully Completed</h2>
+                <p>Thank you for completing your KYC. Our team will now review your details. Please allow 3–5 working days for the next steps.</p>
             </Card>
         );
     }

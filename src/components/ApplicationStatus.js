@@ -22,7 +22,7 @@ export const ApplicationStatus = () => {
 
     if (!response) {
         return <Container><Card className="p-4 shadow"><p className="text-danger">No application data found.</p></Card></Container>
-    
+
     }
 
     const handleApplyClick = () => {
@@ -55,40 +55,45 @@ export const ApplicationStatus = () => {
         );
     };
 
-        // ✅ Approved View
-        const renderApproved = () => {
-            return (
-                <Card className="p-4 mt-4 shadow">
-                    <h2 className="text-success mb-3">🎉 Application Approved!</h2>
-                </Card>
-            );
-        };
+    // ✅ Approved View
+    const renderApproved = () => {
+        return (
+            <Card className="p-4 mt-4 shadow">
+                <h2 className="text-success mb-3">🎉 Loan Application Approved</h2>
+                <p>Congratulations! Your loan application has been approved. Our team will contact you shortly with the next steps.</p>
+
+            </Card>
+        );
+    };
 
 
-        // ✅ kyc View
-        const renderKycDone = () => {
-            return (
-                <Card className="p-4 mt-4 shadow">
-                    <h2 className="text-success mb-3">🎉 KYC is done, please allow us 3-4 days time!</h2>
-                </Card>
-            );
-        };
+    // ✅ kyc View
+    const renderKycDone = () => {
+        return (
+            <Card className="p-4 mt-4 shadow">
+                <h2 className="text-success mb-3">🎉 KYC Successfully Completed</h2>
+                <p>Thank you for completing your KYC. Our team will now review your details. Please allow 3–5 working days for the next steps.</p>
+
+            </Card>
+        );
+    };
 
     // ✅ Denied View
     const renderDenied = () => (
         <Card className="p-4 mt-4 shadow">
-            <h2 className="text-danger">❌ Application Denied</h2>
-            <p>Unfortunately, your credit score does not meet the minimum requirement for loan approval.</p>
+            <h2 className="text-danger">❌ Application Not Approved</h2>
+            <p>We regret to inform you that your current credit score does not meet the eligibility criteria for loan approval at this time.</p>
+
         </Card>
     );
 
     // ✅ Render based on approval
     return (
         <Container>
-            {response.status === STATUS_PARTIAL &&  renderPartial()}
-            {response.status === STATUS_APPROVED &&  renderApproved()}
-            {response.status === STATUS_REJECTED &&  renderDenied()}
-            {response.status === STATUS_KYC &&  renderKycDone()}
+            {response.status === STATUS_PARTIAL && renderPartial()}
+            {response.status === STATUS_APPROVED && renderApproved()}
+            {response.status === STATUS_REJECTED && renderDenied()}
+            {response.status === STATUS_KYC && renderKycDone()}
         </Container>
 
     );

@@ -28,13 +28,20 @@ export async function login(formData) {
         const { data } = await axios.post(BASE_URL + '/user', formData);
         response = data;
     } catch (e) {
-        if (formData.mobile === "7748808448") {
-            response = { status: STATUS_PARTIAL, creditLimit: 500000, interestRate: 12.0, tenure: 5 }
-        } else if (formData.mobile === "7748808449") {
-            response = { status: STATUS_APPROVED }
+        console.log(e);
+        if (e?.response.data.error === "User not found") {
+            console.log("I am here")
+            return { status: "not_found" };
         }
         else {
-            response = { status: STATUS_REJECTED }
+            if (formData.mobile === "7748808448") {
+                response = { status: STATUS_PARTIAL, creditLimit: 500000, interestRate: 12.0, tenure: 5 }
+            } else if (formData.mobile === "7748808449") {
+                response = { status: STATUS_APPROVED }
+            }
+            else {
+                response = { status: STATUS_REJECTED }
+            }
         }
     }
     console.log(response);
