@@ -21,8 +21,12 @@ export const LoanApplicationForm = () => {
     idProof: null,
     employeeIdCard: null,
     recentSalarySlips: null,
+    gasBillAmountMonthly: null,
+    propertyBillAmountMonthly: null,
     utilityBillsGas: null,
     utilityBillsGasRation: null,
+    bankCredit: null,
+    bankDebit: null,
     bankTransactions: null,
     walletStatements: null, // Optional field
     informalIncomeProof: null,
@@ -267,32 +271,65 @@ export const LoanApplicationForm = () => {
         <Form.Group className="mb-3" controlId="employeeIdCard">
           <Form.Label>2. Employee ID Card </Form.Label>
           <Form.Control type="file" name="employeeIdCard" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
-          <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
+          <Form.Text>e.g., Employee ID Card</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="recentSalarySlips">
                   <Form.Label>3. Recent Salary Slips </Form.Label>
+
+                      <Form.Group className="mb-3" controlId="salaryAmountMonthly">
+                        <Form.Label>Monthly income</Form.Label>
+                        <Form.Control type="text" name="salaryAmountMonthly" placeholder="Monthly income" value={formData.salaryAmountMonthly} onChange={handleChange} isInvalid={!!errors.salaryAmountMonthly} required />
+                        <Form.Control.Feedback type="invalid">{errors.salaryAmountMonthly}</Form.Control.Feedback>
+                      </Form.Group>
+
                   <Form.Control type="file" name="recentSalarySlips" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
-                  <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
+                  <Form.Text>e.g., Recent Salary Slips</Form.Text>
                   <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
                 </Form.Group>
 
         <Form.Group className="mb-3" controlId="utilityBillsGas">
                   <Form.Label>4. Utility Bill (Gas, Electricity, Water) </Form.Label>
-                  <Form.Control type="file" name="utilityBillsGas" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
-                  <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
-                  <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
+                  <Form.Group className="mb-3" controlId="gasBillAmountMonthly">
+                          <Form.Label>Monthly bill</Form.Label>
+                          <Form.Control type="text" name="gasBillAmountMonthly" placeholder="Monthly bill" value={formData.gasBillAmountMonthly} onChange={handleChange} isInvalid={!!errors.gasBillAmountMonthly} required />
+                          <Form.Control.Feedback type="invalid">{errors.gasBillAmountMonthly}</Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Control type="file" name="utilityBillsGas" onChange={handleFileChange} isInvalid={!!errors.utilityBillsGas} accept="image/*,.pdf" />
+                  <Form.Text>e.g., Utility Bill (Gas, Electricity, Water Bill)</Form.Text>
+                  <Form.Control.Feedback type="invalid">{errors.utilityBillsGas}</Form.Control.Feedback>
                 </Form.Group>
         <Form.Group className="mb-3" controlId="utilityBillsGasRation">
           <Form.Label>5. Utility Bill (Property Tax, Ration Card)</Form.Label>
-          <Form.Control type="file" name="utilityBillsGasRation" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
-          <Form.Text>e.g., Employee ID Card, Recent Salary Slips, Utility Bill (Gas, Electricity), Property Tax, Ration Card</Form.Text>
-          <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
+          <Form.Group className="mb-3" controlId="propertyBillAmountMonthly">
+                    <Form.Label>Monthly bill</Form.Label>
+                    <Form.Control type="text" name="propertyBillAmountMonthly" placeholder="Monthly bill" value={formData.propertyBillAmountMonthly} onChange={handleChange} isInvalid={!!errors.propertyBillAmountMonthly} required />
+                    <Form.Control.Feedback type="invalid">{errors.gasBillAmountMonthly}</Form.Control.Feedback>
+            </Form.Group>
+          <Form.Control type="file" name="utilityBillsGasRation" onChange={handleFileChange} isInvalid={!!errors.utilityBillsGasRation} accept="image/*,.pdf" />
+          <Form.Text>e.g., Property Tax, Ration Card</Form.Text>
+          <Form.Control.Feedback type="invalid">{errors.utilityBillsGasRation}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="bankTransactions">
           <Form.Label>6. Bank Transactions (Last 3 Months) <span className="text-danger">*</span></Form.Label>
+          <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="backCredit">
+                        <Form.Label>Credit</Form.Label>
+                        <Form.Control type="text" name="backCredit" placeholder="Credit" value={formData.backCredit} onChange={handleChange} isInvalid={!!errors.backCredit} required />
+                        <Form.Control.Feedback type="invalid">{errors.backCredit}</Form.Control.Feedback>
+                      </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                        <Form.Group className="mb-3" controlId="backDebit">
+                          <Form.Label>Debit</Form.Label>
+                          <Form.Control type="text" name="backDebit" placeholder="Debit" value={formData.backDebit} onChange={handleChange} isInvalid={!!errors.backDebit} required />
+                          <Form.Control.Feedback type="invalid">{errors.backDebit}</Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
+          </Row>
           <Form.Control type="file" name="bankTransactions" onChange={handleFileChange} isInvalid={!!errors.bankTransactions} accept="image/*,.pdf" required />
           <Form.Text>e.g., Bank statements or passbook pages</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.bankTransactions}</Form.Control.Feedback>
