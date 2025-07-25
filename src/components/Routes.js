@@ -4,6 +4,7 @@ import Home from "./Home.js";
 import MobileLogin from './MobileLogin.js';
 import { ApplicationStatus } from './ApplicationStatus.js';
 import VideoRecorder from './VideoKyc.js';
+import Logout from './Logout.js';
 
 export default function Routes(props) {
 
@@ -14,6 +15,7 @@ export default function Routes(props) {
             <Route exact path="/login" > <MobileLogin {...props} /></Route>
             <Route exact path="/status"><ApplicationStatus /></Route>
             <Route exact path="/videokyc"><VideoRecorder /></Route>
+            <Route exact path="/logout"><Logout/></Route>
 
         </Switch >
     );

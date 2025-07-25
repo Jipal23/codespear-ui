@@ -11,6 +11,7 @@ import {
 import { BsInfoCircle } from "react-icons/bs";
 import { useHistory } from 'react-router-dom';
 import BackendApi from './BackendApi';
+import { useAuth } from "../AuthContext";
 
 const HARDCODED_PAN = "ABCDE1234F";
 
@@ -21,7 +22,9 @@ export default function MobileLogin() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  const { loggedIn, setLoggedIn, setUserName } = useAuth();
+
 
   const handleLogin = async () => {
     if (mobile.length !== 10) {
@@ -34,19 +37,20 @@ export default function MobileLogin() {
     if (password === expectedPassword) {
       setLoggedIn(true);
       setError("");
+      setUserName(mobile);
 
-const formData = {
-  mobile,
-  password
-};
+      const formData = {
+        mobile,
+        password
+      };
 
-const submissionData = new FormData();
-Object.keys(formData).forEach(key => {
-  submissionData.append(key, formData[key]);
-});
+      const submissionData = new FormData();
+      Object.keys(formData).forEach(key => {
+        submissionData.append(key, formData[key]);
+      });
 
-      
-      const response = await  BackendApi.login(submissionData);
+
+      const response = await BackendApi.login(submissionData);
 
       history.push('/status', { response });
 
@@ -60,6 +64,7 @@ Object.keys(formData).forEach(key => {
     setPassword("");
     setLoggedIn(false);
     setError("");
+    setUserName("")
   };
 
   return (
@@ -117,12 +122,13 @@ Object.keys(formData).forEach(key => {
                 </Button>
               </Form>
             ) : (
-              <div className="text-center">
-                <h5 className="text-success">Welcome! 🎉</h5>
-                <p>You are logged in with <strong>{mobile}</strong></p>
-                <Button variant="danger" onClick={handleLogout}>
-                  Logout
-                </Button>
+              <div className="text-center my-5">
+                <div className="d-flex justify-content-center">
+                  <div className="spinner-border text-success" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                <p className="mt-3">Logging you in...</p>
               </div>
             )}
           </Card>
