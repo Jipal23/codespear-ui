@@ -25,8 +25,6 @@ export const LoanApplicationForm = () => {
     propertyBillAmountMonthly: null,
     utilityBillsGas: null,
     utilityBillsGasRation: null,
-    bankCredit: null,
-    bankDebit: null,
     bankTransactions: null,
     walletStatements: null, // Optional field
     informalIncomeProof: null,
