@@ -343,7 +343,7 @@ export const LoanApplicationForm = () => {
         <Form.Group className="mb-3" controlId="walletStatements">
           <Form.Label>8. Payment Wallet Statements</Form.Label>
           <Form.Control type="file" name="walletStatements" onChange={handleFileChange} accept="image/*,.pdf" />
-          <Form.Text>e.g., Statements from digital wallets like PayPal, Venmo, etc.</Form.Text>
+          <Form.Text>e.g., Statements from digital wallets like Paytm, Gpay, Phonepe etc.</Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="remarks">
