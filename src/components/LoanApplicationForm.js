@@ -274,7 +274,7 @@ export const LoanApplicationForm = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="recentSalarySlips">
-                  <Form.Label>3. Recent Salary Slips </Form.Label>
+                  <Form.Label>3. Recent Salary Slips (Income) </Form.Label>
 
                       <Form.Group className="mb-3" controlId="salaryAmountMonthly">
                         <Form.Label>Monthly income</Form.Label>
@@ -283,30 +283,30 @@ export const LoanApplicationForm = () => {
                       </Form.Group>
 
                   <Form.Control type="file" name="recentSalarySlips" onChange={handleFileChange} isInvalid={!!errors.additionalProof} accept="image/*,.pdf" />
-                  <Form.Text>e.g., Recent Salary Slips</Form.Text>
+                  <Form.Text>e.g., Recent Salary Slips (Income)</Form.Text>
                   <Form.Control.Feedback type="invalid">{errors.additionalProof}</Form.Control.Feedback>
                 </Form.Group>
 
         <Form.Group className="mb-3" controlId="utilityBillsGas">
                   <Form.Label>4. Utility Bill (Gas, Electricity, Water) </Form.Label>
                   <Form.Group className="mb-3" controlId="gasBillAmountMonthly">
-                          <Form.Label>Monthly bill</Form.Label>
+                          <Form.Label>Monthly bill amount</Form.Label>
                           <Form.Control type="text" name="gasBillAmountMonthly" placeholder="Monthly bill" value={formData.gasBillAmountMonthly} onChange={handleChange} isInvalid={!!errors.gasBillAmountMonthly} required />
                           <Form.Control.Feedback type="invalid">{errors.gasBillAmountMonthly}</Form.Control.Feedback>
                   </Form.Group>
                   <Form.Control type="file" name="utilityBillsGas" onChange={handleFileChange} isInvalid={!!errors.utilityBillsGas} accept="image/*,.pdf" />
-                  <Form.Text>e.g., Utility Bill (Gas, Electricity, Water Bill)</Form.Text>
+                  <Form.Text>e.g., Utility Bill (Gas, Electricity, Water)</Form.Text>
                   <Form.Control.Feedback type="invalid">{errors.utilityBillsGas}</Form.Control.Feedback>
                 </Form.Group>
         <Form.Group className="mb-3" controlId="utilityBillsGasRation">
-          <Form.Label>5. Utility Bill (Property Tax, Ration Card)</Form.Label>
+          <Form.Label>5. Utility Bill (Any other bill)</Form.Label>
           <Form.Group className="mb-3" controlId="propertyBillAmountMonthly">
-                    <Form.Label>Monthly bill</Form.Label>
+                    <Form.Label>Monthly bill amount</Form.Label>
                     <Form.Control type="text" name="propertyBillAmountMonthly" placeholder="Monthly bill" value={formData.propertyBillAmountMonthly} onChange={handleChange} isInvalid={!!errors.propertyBillAmountMonthly} required />
                     <Form.Control.Feedback type="invalid">{errors.gasBillAmountMonthly}</Form.Control.Feedback>
             </Form.Group>
           <Form.Control type="file" name="utilityBillsGasRation" onChange={handleFileChange} isInvalid={!!errors.utilityBillsGasRation} accept="image/*,.pdf" />
-          <Form.Text>e.g., Property Tax, Ration Card</Form.Text>
+          <Form.Text>e.g., Any other bill</Form.Text>
           <Form.Control.Feedback type="invalid">{errors.utilityBillsGasRation}</Form.Control.Feedback>
         </Form.Group>
 
@@ -314,17 +314,17 @@ export const LoanApplicationForm = () => {
           <Form.Label>6. Bank Transactions (Last 3 Months) <span className="text-danger">*</span></Form.Label>
           <Row>
                     <Col md={6}>
-                      <Form.Group className="mb-3" controlId="backCredit">
-                        <Form.Label>Credit</Form.Label>
-                        <Form.Control type="text" name="backCredit" placeholder="Credit" value={formData.backCredit} onChange={handleChange} isInvalid={!!errors.backCredit} required />
-                        <Form.Control.Feedback type="invalid">{errors.backCredit}</Form.Control.Feedback>
+                      <Form.Group className="mb-3" controlId="bankCredit">
+                        <Form.Label>Total Credit</Form.Label>
+                        <Form.Control type="text" name="bankCredit" placeholder="Credit" value={formData.bankCredit} onChange={handleChange} isInvalid={!!errors.bankCredit} required />
+                        <Form.Control.Feedback type="invalid">{errors.bankCredit}</Form.Control.Feedback>
                       </Form.Group>
                     </Col>
                     <Col md={6}>
-                        <Form.Group className="mb-3" controlId="backDebit">
-                          <Form.Label>Debit</Form.Label>
-                          <Form.Control type="text" name="backDebit" placeholder="Debit" value={formData.backDebit} onChange={handleChange} isInvalid={!!errors.backDebit} required />
-                          <Form.Control.Feedback type="invalid">{errors.backDebit}</Form.Control.Feedback>
+                        <Form.Group className="mb-3" controlId="bankDebit">
+                          <Form.Label>Total Debit</Form.Label>
+                          <Form.Control type="text" name="bankDebit" placeholder="Debit" value={formData.bankDebit} onChange={handleChange} isInvalid={!!errors.bankDebit} required />
+                          <Form.Control.Feedback type="invalid">{errors.bankDebit}</Form.Control.Feedback>
                         </Form.Group>
                       </Col>
           </Row>
